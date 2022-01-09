@@ -21,29 +21,29 @@ def get_matching_words(words, main_letter, secondary_letters):
     # Find all words that contain specified words
     for word in words:
         # if you use openOffice .dic dictionary files you need to remove extra characters
-        word = word.split("/")[0].lower().strip()
+        word = strip_accents(word.split("/")[0].lower().strip())
         match = 0
         if main_letter in word.lower():
             for letter in word.lower():
                 if letter in secondary_letters:
                     match += 1
-        if match >= 2:
-            word_matches.append(strip_accents(word))
-            continue
+            if match >= 2:
+                word_matches.append(word)
+                continue
 
     # Remove words with unwanted letters
-    for w in list(word_matches):
-        for l in w:
-            if l not in secondary_letters and l != main_letter:
-                word_matches.remove(w)
+    for word in list(word_matches):
+        for letter in word:
+            if letter not in secondary_letters and letter != main_letter:
+                word_matches.remove(word)
                 break
     return word_matches
 
 
-# To use with dictionary file
+if __name__ == "__main__":
+    # To use with dictionary file
+    filename = 'catalan_dictionary.txt'
 
-# filename = 'ca.dic'
-
-# result = get_matching_words_from_file(filename, "n", ["p", "o", "r", "t", "a", "l"])
-result = get_matching_words(["fofo/_F_V_Y", "tronar/_E", "fogallejar/52"], "n", ["p", "o", "r", "t", "a", "l"])
-print(result)
+    result = get_matching_words_from_file(filename, "g", ["c", "a", "r", "i", "m", "l"])
+    print(result)
+    print(len(result))
