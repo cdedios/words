@@ -1,5 +1,7 @@
 import unicodedata
 
+MAIN_LETTER = "g"
+SECONDARY_LETTERS = ["c", "a", "r", "i", "m", "l"]
 
 def strip_accents(s):
     return ''.join(c for c in unicodedata.normalize('NFD', s)
@@ -44,6 +46,6 @@ if __name__ == "__main__":
     # To use with dictionary file
     filename = 'catalan_dictionary.txt'
 
-    result = get_matching_words_from_file(filename, "g", ["c", "a", "r", "i", "m", "l"])
-    print(result)
-    print(len(result))
+    words = get_matching_words_from_file(filename, MAIN_LETTER, SECONDARY_LETTERS)
+    print("You found " + str(len(words)) + " words!")
+    print(words)
